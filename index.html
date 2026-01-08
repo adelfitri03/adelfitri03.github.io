@@ -1,232 +1,703 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>My Portfolio | Adel Fitri Rahmasari</title>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio Adel Fitri Rahmasari</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    body {
+      background-color: #EAF6FF;
+      color: #0A3D62;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
-  </head>
+    /* NAVBAR */
+    nav {
+      background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
 
-  <body id="home">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top" style="background-color: #fadadd">
-      <div class="container">
-        <a class="navbar-brand" href="#">ADEL</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-decoration: none;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 10px;
+    }
+
+    .nav-menu li a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      transition: 0.3s;
+    }
+
+    .nav-menu li a:hover,
+    .nav-menu li a.active {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, #BFE6FF, #7CC8F8);
+      color: #0A3D62;
+      text-align: center;
+      padding: 140px 20px 70px;
+    }
+
+    header h1 {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    .header-contact {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      background: rgba(255,255,255,0.4);
+      padding: 8px 15px;
+      border-radius: 30px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    section {
+      padding: 80px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      color: #0A3D62;
+      font-size: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    /* ABOUT */
+    .about-content {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .about-img img {
+      max-width: 350px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    /* TIMELINE */
+    .timeline {
+      max-width: 900px;
+      margin: auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      width: 4px;
+      background: #7CC8F8;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      width: 50%;
+      padding: 20px 40px;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) { left: 0; }
+    .timeline-item:nth-child(even) { left: 50%; }
+
+    .timeline-content {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border-left: 5px solid #7CC8F8;
+    }
+
+    .timeline-item:nth-child(even) .timeline-content {
+      border-left: none;
+      border-right: 5px solid #7CC8F8;
+    }
+
+    .timeline-icon {
+      position: absolute;
+      width: 45px;
+      height: 45px;
+      background: #7CC8F8;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 20px;
+      right: -23px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-icon {
+      left: -23px;
+      right: auto;
+    }
+
+    /* SKILLS */
+    .skill-category {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .skill-bar {
+      background: #EAF6FF;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 12px;
+    }
+
+    .skill-level {
+      background: linear-gradient(90deg, #7CC8F8, #5FB8F0);
+      height: 100%;
+    }
+
+    /* BATIK BUTTON */
+    .batik-button {
+      background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
+      color: white;
+      padding: 15px 35px;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-flex;
+      gap: 10px;
+      font-weight: bold;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    /* FOOTER */
+    footer {
+      background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
+      color: white;
+      text-align: center;
+      padding: 30px;
+    }
+
+    @media(max-width: 768px) {
+      .about-content { flex-direction: column; text-align: center; }
+      .timeline::before { left: 20px; }
+      .timeline-item { width: 100%; left: 0; padding-left: 60px; }
+      .timeline-icon { left: 0; }
+      .menu-toggle { display: block; }
+    }
+  </style>
+</head>
+
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="nav-container">
+        <a href="#home" class="logo">
+          <i class="fas fa-user-circle"></i>
+          <span>Adel Fitri</span>
+        </a>
+        
+        <button class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-            <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-            <li class="nav-item"><a class="nav-link" href="#contact">Contact Me</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="index2.html">Portofolio 2</a>
-            <li class="nav-item">
-              <a class="nav-link" href="batik.html">Batik</a>
-            </li>
-          </ul>
-        </div>
+        
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#home" class="active"><i class="fas fa-home"></i> Beranda</a></li>
+          <li><a href="#about"><i class="fas fa-user"></i> Profil</a></li>
+          <li><a href="#education"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
+          <li><a href="#experience"><i class="fas fa-briefcase"></i> Pengalaman</a></li>
+          <li><a href="#skills"><i class="fas fa-code"></i> Keahlian</a></li>
+          <li><a href="#achievements"><i class="fas fa-trophy"></i> Prestasi</a></li>
+          <li><a href="batik.html"><i class="fas fa-palette"></i> Batik</a></li>
+        </ul>
       </div>
     </nav>
 
-    <!-- Jumbotron -->
-    <section class="jumbotron text-center">
-      <img src="image/WhatsApp Image 2025-07-23 at 22.37.30.jpeg" alt="adel fitri" width="200" class="rounded-circle img-thumbnail" />
-      <h1 class="display-4">ADEL FITRI RAHMASARI</h1>
-      <p class="lead">SISWA XI-PPLG 1 | SMKN 5 MALANG</p>
-      <a href="https://github.com/adelfitri03" target="_blank" class="btn btn-dark" id="profile-link"> Follow my GitHub <i class="bi bi-github"></i> </a>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#ffffff"
-          d="M0,128L24,138.7C48,149,96,171,144,181.3C192,192,240,192,288,176C336,160,384,128,432,144C480,160,528,224,576,234.7C624,245,672,203,720,170.7C768,139,816,117,864,128C912,139,960,181,1008,186.7C1056,192,1104,160,1152,138.7C1200,117,1248,107,1296,101.3C1344,96,1392,96,1416,96L1440,96L1440,320L0,320Z"
-        />
-      </svg>
-    </section>
+    <!-- Header Section -->
+    <header id="home">
+      <div class="container">
+        <h1>Adel Fitri Rahmasari</h1>
+        <p>Siswa XI-PPLG 1 | SMKN 5 Malang | Calon Pengembang Perangkat Lunak</p>
+        <div class="header-contact">
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>0815-5448-4317</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>delhehehe18@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Malang, Jawa Timur</span>
+          </div>
+        </div>
+      </div>
+    </header>
 
-    <!-- About -->
+    <!-- About Me Section -->
     <section id="about">
       <div class="container">
-        <div class="row text-center mb-3">
-          <div class="col"><h2>About Me</h2></div>
+        <div class="section-title">
+          <h2>Profil</h2>
         </div>
-        <div class="row justify-content-center fs-5 text-center">
-          <div class="col-md-7">
-            <p>
-              Nama saya Adel Fitri Rahmasari, lahir di Malang pada tanggal 04 Oktober 2008. Saya adalah siswa SMKN 5 Malang tahun ajaran 2024/2025, kelas XI PPLG 1 jurusan Pengembangan Perangkat Lunak dan Gim. Saya tinggal di Jalan Terusan
-              Batu Bara VII No.52, Kota Malang. Saya aktif di bidang teknologi dan mengikuti ekstrakurikuler Seni Musik. Hobi saya membaca dan bermain game. Saya punya semangat belajar tinggi dan bercita-cita menjadi orang sukses yang
-              bermanfaat. Kontak saya: WA 0815-5448-4317, Email: delhehehe18@gmail.com
-            </p>
+
+        <div class="about-content">
+          <div class="about-img">
+            <img src="image/WhatsApp Image 2025-07-23 at 22.37.30.jpeg" alt="Adel Fitri Rahmasari" />
+          </div>
+
+          <div class="about-text">
+            <p>Nama saya <strong>Adel Fitri Rahmasari</strong>, lahir di Malang pada tanggal 04 Oktober 2008. Saya adalah siswa SMKN 5 Malang tahun ajaran 2024/2025, kelas XI PPLG 1 jurusan Pengembangan Perangkat Lunak dan Gim.</p>
+            <p>Saya tinggal di Jalan Terusan Batu Bara VII No.52, Kota Malang. Saya aktif di bidang teknologi dan mengikuti ekstrakurikuler Seni Musik. Hobi saya membaca dan bermain game.</p>
+            <p>Saya punya semangat belajar tinggi dan bercita-cita menjadi orang sukses yang bermanfaat. Saya memiliki pengalaman dalam organisasi dan telah meraih berbagai prestasi akademik.</p>
+            <p>Saya sedang mengembangkan keterampilan dalam pengembangan perangkat lunak dan berharap dapat berkontribusi dalam industri teknologi di masa depan.</p>
           </div>
         </div>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#F8C8DC"
-          d="M0,128L24,138.7C48,149,96,171,144,181.3C192,192,240,192,288,176C336,160,384,128,432,144C480,160,528,224,576,234.7C624,245,672,203,720,170.7C768,139,816,117,864,128C912,139,960,181,1008,186.7C1056,192,1104,160,1152,138.7C1200,117,1248,107,1296,101.3C1344,96,1392,96,1416,96L1440,96L1440,320L0,320Z"
-        />
-      </svg>
     </section>
 
-    <!-- Projects -->
-    <section id="projects">
+    <!-- Education Section -->
+    <section id="education">
       <div class="container">
-        <div class="row text-center mb-3">
-          <div class="col"><h2>My Projects</h2></div>
+        <div class="section-title">
+          <h2>Riwayat Pendidikan</h2>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="projects/1.jpg" class="card-img-top" alt="projects" />
-              <div class="card-body">
-                <p class="card-text">Contoh proyek yang pernah saya buat.</p>
-              </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2024 - Sekarang</div>
+              <h3>SMKN 5 Malang</h3>
+              <p>Jurusan Pengembangan Perangkat Lunak dan Gim (PPLG)</p>
+              <p><em>Mempelajari dasar-dasar pemrograman, desain web, dan pengembangan aplikasi</em></p>
+            </div>
+            <div class="timeline-icon">
+              <i class="fas fa-graduation-cap"></i>
             </div>
           </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="projects/2.jpg" class="card-img-top" alt="projects" />
-              <div class="card-body">
-                <p class="card-text">Contoh proyek yang pernah saya buat.</p>
-              </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2021 - 2024</div>
+              <h3>MTS Ahmad Yani Jabung</h3>
+              <p><em>Aktif di ekstrakurikuler Qiroati</em></p>
+            </div>
+            <div class="timeline-icon">
+              <i class="fas fa-school"></i>
             </div>
           </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="projects/3.jpg" class="card-img-top" alt="projects" />
-              <div class="card-body">
-                <p class="card-text">Contoh proyek yang pernah saya buat.</p>
-              </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2015 - 2021</div>
+              <h3>SDI Dewi Masyithoh Gondanglegi</h3>
+              <p>Program Reguler</p>
+              <p><em>Juara Umum regu terbaik putri yang di pimpin oleh saya</em></p>
             </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="projects/4.jpg" class="card-img-top" alt="projects" />
-              <div class="card-body">
-                <p class="card-text">Contoh proyek yang pernah saya buat.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-3">
-            <div class="card">
-              <img src="projects/5.jpg" class="card-img-top" alt="projects" />
-              <div class="card-body">
-                <p class="card-text">Contoh proyek yang pernah saya buat.</p>
-              </div>
+            <div class="timeline-icon">
+              <i class="fas fa-book"></i>
             </div>
           </div>
         </div>
       </div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-        <path
-          fill="#ffffff"
-          d="M0,128L24,160C48,192,96,256,144,240C192,224,240,128,288,122.7C336,117,384,203,432,240C480,277,528,267,576,240C624,213,672,171,720,170.7C768,171,816,213,864,229.3C912,245,960,235,1008,218.7C1056,203,1104,181,1152,170.7C1200,160,1248,160,1296,170.7C1344,181,1392,203,1416,213.3L1440,224L1440,320L0,320Z"
-        />
-      </svg>
     </section>
 
-    <!-- Contact -->
-    <section id="contact">
+    <!-- Work Experience & Achievements Section -->
+    <section id="experience">
       <div class="container">
-        <div class="row text-center mb-3">
-          <div class="col"><h2>Contact Me</h2></div>
+        <div class="section-title">
+          <h2>Pengalaman Organisasi & Prestasi</h2>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            <form name="adel-fitri">
-              <div class="mb-3">
-                <label for="name" class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" id="name" name="nama" required />
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required />
-                <div class="form-text">We'll never share your email with anyone else.</div>
-              </div>
-              <div class="mb-3">
-                <label for="pesan" class="form-label">Pesan</label>
-                <textarea class="form-control" id="pesan" rows="3" name="pesan" required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary btn-kirim">Kirim</button>
-              <button class="btn btn-primary btn-loading d-none" type="button" disabled>
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Loading...
-              </button>
-              <div class="my-alert mt-3"></div>
-            </form>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2024 - Sekarang</div>
+              <h3>Anggota Muda Mudi</h3>
+              <p>Bidang Sekretaris dan Teknologi Informasi</p>
+              <ul>
+                <li>Membuat desain poster digital untuk kegiatan</li>
+                <li>Mengelola media sosial</li>
+                <li>Membantu pembuatan Proposal Muda Mudi</li>
+              </ul>
+            </div>
+            <div class="timeline-icon">
+              <i class="fas fa-users"></i>
+            </div>
           </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2021</div>
+              <h3>Anggota OSIS</h3>
+              <p>Koordinator Tim Keamanan</p>
+              <ul>
+                <li>Mengkoordinasikan pengamanan acara-acara sekolah.</li>
+                <li>Memimpin tim keamanan OSIS dalam menjaga ketertiban sekolah.</li>
+                <li>Bekerja sama dengan guru, satpam, dan pihak terkait untuk menegakkan disiplin.</li>
+              </ul>
+            </div>
+            <div class="timeline-icon">
+              <i class="fas fa-user-shield"></i>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date"><i class="far fa-calendar-alt"></i> Berbagai Tahun</div>
+              <h3>Prestasi Akademik & Non-Akademik</h3>
+              <ul>
+                <li>Juara 3 Tingkat KKM di Lomba Qiroati Putri</li>
+                <li>Meraih Medali Perak di Bidang Bahasa Indonesia di Olimpiade Indonesia Olimpiad Science</li>
+                <li>Peserta Aktif di Bidang Informatika di Olimpiade Semarak Sains Nasional</li>
+                <li>Meraih Medali Perunggu di Bidang Bahasa Indonesia di Olimpiade National Science Competition</li>
+                <li>Meraih Medali Perunggu di Bidang Informatika di Olimpiade Sains dan Kesehatan</li>
+              </ul>
+            </div>
+            <div class="timeline-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-title">
+          <h2>Kemampuan & Keahlian</h2>
+        </div>
+
+        <div class="skills-container">
+          <div class="skill-category">
+            <h3>Kepemimpinan OSIS</h3>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>Koordinasi Tim Keamanan</span>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 90%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>Manajemen Acara Sekolah</span>
+                <span class="skill-percentage">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 85%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>Public Speaking</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Teknologi (PPLG)</h3>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>HTML/CSS</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 80%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>JavaScript Dasar</span>
+                <span class="skill-percentage">65%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 65%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>Microsoft Office</span>
+                <span class="skill-percentage">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-category">
+            <h3>Organisasi Muda Mudi</h3>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>Desain Grafis (Canva)</span>
+                <span class="skill-percentage">90%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 90%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>Manajemen Media Sosial</span>
+                <span class="skill-percentage">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 80%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>Penulisan Proposal</span>
+                <span class="skill-percentage">75%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements">
+      <div class="container">
+        <div class="section-title">
+          <h2>Pencapaian & Penghargaan</h2>
+        </div>
+
+        <div class="achievements-container">
+          <div class="achievement-item">
+            <div class="achievement-icon">
+              <i class="fas fa-medal"></i>
+            </div>
+            <div class="achievement-content">
+              <h3>Juara 3 Lomba Qiroati</h3>
+              <p>Meraih juara 3 tingkat KKM di lomba Qiroati Putri yang diselenggarakan di wilayah Malang.</p>
+            </div>
+          </div>
+
+          <div class="achievement-item">
+            <div class="achievement-icon">
+              <i class="fas fa-award"></i>
+            </div>
+            <div class="achievement-content">
+              <h3>Medali Perak Bahasa Indonesia</h3>
+              <p>Meraih medali perak di bidang Bahasa Indonesia pada Olimpiade Indonesia Olimpiad Science.</p>
+            </div>
+          </div>
+
+          <div class="achievement-item">
+            <div class="achievement-icon">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <div class="achievement-content">
+              <h3>Peserta Aktif Informatika</h3>
+              <p>Sebagai peserta aktif di bidang Informatika pada Olimpiade Semarak Sains Nasional.</p>
+            </div>
+          </div>
+
+          <div class="achievement-item">
+            <div class="achievement-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <div class="achievement-content">
+              <h3>Medali Perunggu Bahasa Indonesia</h3>
+              <p>Meraih medali perunggu di bidang Bahasa Indonesia pada Olimpiade National Science Competition.</p>
+            </div>
+          </div>
+
+          <div class="achievement-item">
+            <div class="achievement-icon">
+              <i class="fas fa-microscope"></i>
+            </div>
+            <div class="achievement-content">
+              <h3>Medali Perunggu Informatika</h3>
+              <p>Meraih medali perunggu di bidang Informatika pada Olimpiade Sains dan Kesehatan.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Batik Section -->
+        <div class="batik-section">
+          <h3 style="color: #d35d8a; margin-bottom: 20px;">Proyek Batik Indonesia</h3>
+          <p style="margin-bottom: 30px; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Jelajahi proyek website Batik Indonesia yang saya buat untuk mempromosikan warisan budaya Indonesia.
+          </p>
+          <a href="batik.html" class="batik-button">
+            <i class="fas fa-palette"></i>
+            Lihat Proyek Batik
+          </a>
         </div>
       </div>
     </section>
 
     <!-- Footer -->
-    <footer style="background-color: #f8c8dc" class="text-white text-center p-5">
-      <p>
-        Created with <i class="bi bi-heart-fill text-danger"></i> by
-        <a href="https://www.instagram.com/_deltcha/" class="text-white fw-bold">Adel Fitri</a>
-      </p>
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <h3>Adel Fitri Rahmasari</h3>
+          <p>Calon Pengembang Perangkat Lunak dan Gim</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+          </div>
+          <p>&copy; 2025 Adel Fitri Rahmasari. All rights reserved.</p>
+          <p>Created with <i class="fas fa-heart"></i> by Adel</p>
+        </div>
+      </div>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-    <!-- Fixed Google Sheets Form Script -->
     <script>
-      const scriptURL = "https://script.google.com/macros/s/AKfycbxaDjgsWV0eQxiGYlfezgwi-bc64PZpkxiKWEDEc4eCj-NNKX6KaWOxafWgU0kcta03eA/exec";
-      const form = document.forms["adel-fitri"];
-      const btnKirim = document.querySelector(".btn-kirim");
-      const btnLoading = document.querySelector(".btn-loading");
-      const myAlert = document.querySelector(".my-alert");
-
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-
-        // Show loading state
-        btnKirim.classList.add("d-none");
-        btnLoading.classList.remove("d-none");
-        myAlert.innerHTML = "";
-
-        try {
-          // Send data to Google Sheets
-          await fetch(scriptURL, {
-            method: "POST",
-            body: new FormData(form),
-            mode: "no-cors",
+      // Navigation functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        
+        // Toggle mobile menu
+        menuToggle.addEventListener('click', function() {
+          navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link (except external links)
+        navLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            // Only close menu for internal links
+            if (!this.getAttribute('href').includes('.html')) {
+              navMenu.classList.remove('active');
+              
+              // Update active link for internal navigation
+              navLinks.forEach(navLink => {
+                if (!navLink.getAttribute('href').includes('.html')) {
+                  navLink.classList.remove('active');
+                }
+              });
+              this.classList.add('active');
+            }
           });
-
-          // Show success message
-          myAlert.innerHTML = `
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-              <strong>Berhasil!</strong> Pesan Anda telah terkirim.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          `;
-
-          // Reset form
-          form.reset();
-        } catch (error) {
-          // Show error message
-          myAlert.innerHTML = `
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>Gagal!</strong> Terjadi kesalahan saat mengirim pesan.
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-          `;
-          console.error("Error!", error);
-        } finally {
-          // Restore button states
-          btnLoading.classList.add("d-none");
-          btnKirim.classList.remove("d-none");
-        }
+        });
+        
+        // Update active link on scroll (only for internal links)
+        window.addEventListener('scroll', function() {
+          const sections = document.querySelectorAll('section');
+          const navHeight = 70;
+          
+          let current = '';
+          sections.forEach(section => {
+            const sectionTop = section.offsetTop - navHeight - 50;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+              current = section.getAttribute('id');
+            }
+          });
+          
+          navLinks.forEach(link => {
+            // Only update active state for internal navigation links
+            if (!link.getAttribute('href').includes('.html')) {
+              link.classList.remove('active');
+              if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+              }
+            }
+          });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              const navHeight = 70;
+              const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
+              
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+            }
+          });
+        });
       });
     </script>
   </body>
