@@ -3,1569 +3,1593 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portofolio Adel Fitri Rahmasari</title>
+  <title>Adel Fitri Rahmasari — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    * {
+    :root {
+      --navy: #0B0F1A;
+      --navy-mid: #141824;
+      --navy-light: #1C2235;
+      --gold: #C9A84C;
+      --gold-light: #E8C96A;
+      --sky: #5EAFF2;
+      --sky-light: #8ECDF9;
+      --white: #F7F9FC;
+      --muted: #8892A4;
+      --card-bg: rgba(28, 34, 53, 0.7);
+      --card-border: rgba(201, 168, 76, 0.15);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    body {
-      background-color: #EAF6FF;
-      color: #0A3D62;
-      line-height: 1.6;
+    html {
       scroll-behavior: smooth;
     }
 
-    /* NAVBAR */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== LOADING SCREEN ===== */
+    #loader {
+      position: fixed;
+      inset: 0;
+      background: var(--navy);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #loader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.1em;
+      opacity: 0;
+      animation: fadeIn 0.5s 0.3s forwards;
+    }
+
+    .loader-bar-track {
+      width: 180px;
+      height: 2px;
+      background: var(--navy-light);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .loader-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--sky), var(--gold));
+      border-radius: 2px;
+      animation: loaderFill 1.6s ease forwards;
+    }
+
+    @keyframes loaderFill {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* ===== NAVBAR ===== */
     nav {
-      background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
       position: fixed;
       top: 0;
       width: 100%;
       z-index: 1000;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      padding: 0 5%;
+      transition: var(--transition);
     }
 
-    .nav-container {
+    nav.scrolled {
+      background: rgba(11, 15, 26, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .nav-inner {
       max-width: 1200px;
       margin: auto;
-      padding: 0 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 70px;
+      height: 72px;
     }
 
     .logo {
-      color: white;
-      font-size: 1.4rem;
-      font-weight: bold;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--white);
       text-decoration: none;
-      display: flex;
-      gap: 10px;
-      align-items: center;
+      letter-spacing: 0.03em;
     }
 
-    .nav-menu {
+    .logo span {
+      color: var(--gold);
+    }
+
+    .nav-links {
       display: flex;
       list-style: none;
-      gap: 10px;
+      gap: 4px;
     }
 
-    .nav-menu li a {
-      color: white;
+    .nav-links a {
+      color: var(--muted);
       text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 25px;
-      transition: 0.3s;
-      position: relative;
-      display: flex;
-      gap: 8px;
-      align-items: center;
+      font-size: 0.88rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: var(--transition);
+      letter-spacing: 0.02em;
     }
 
-    .nav-menu li a::before {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: white;
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+      background: rgba(94, 175, 242, 0.1);
     }
 
-    .nav-menu li a:hover::before,
-    .nav-menu li a.active::before {
-      width: 80%;
+    .nav-links a.active {
+      color: var(--sky);
     }
 
-    .nav-menu li a:hover,
-    .nav-menu li a.active {
-      background: rgba(255,255,255,0.25);
-    }
-
-    .menu-toggle {
+    .hamburger {
       display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
     }
 
-    /* HEADER */
-    header {
-      background: linear-gradient(135deg, #BFE6FF, #7CC8F8);
-      color: #0A3D62;
-      text-align: center;
-      padding: 140px 20px 70px;
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ===== HERO ===== */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
       position: relative;
       overflow: hidden;
+      padding: 100px 5% 60px;
     }
 
-    header::before {
-      content: "";
+    .hero-bg {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
-      pointer-events: none;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(94, 175, 242, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 20% 80%, rgba(201, 168, 76, 0.06) 0%, transparent 50%),
+        linear-gradient(160deg, var(--navy) 0%, var(--navy-mid) 100%);
     }
 
-    header .container {
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(94, 175, 242, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94, 175, 242, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-content {
       position: relative;
       z-index: 1;
+      max-width: 1200px;
+      margin: auto;
+      width: 100%;
     }
 
-    header h1 {
-      font-size: 2.6rem;
-      margin-bottom: 10px;
-      animation: slideDown 0.8s ease-out;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      animation: slideUp 0.8s ease-out 0.2s forwards;
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
       opacity: 0;
+      animation: slideUp 0.7s 1.8s forwards;
     }
 
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .hero-eyebrow::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: slideUp 0.7s 2s forwards;
+    }
+
+    .hero-name .accent {
+      background: linear-gradient(135deg, var(--sky), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: slideUp 0.7s 2.2s forwards;
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 45px;
+      opacity: 0;
+      animation: slideUp 0.7s 2.4s forwards;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      font-size: 0.82rem;
+      color: var(--muted);
+      backdrop-filter: blur(10px);
+    }
+
+    .chip i { color: var(--sky); font-size: 0.75rem; }
+
+    .hero-cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: slideUp 0.7s 2.6s forwards;
+    }
+
+    .btn-primary {
+      padding: 13px 28px;
+      background: linear-gradient(135deg, var(--sky), #3d8fd4);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.88rem;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(94, 175, 242, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(94, 175, 242, 0.4);
+    }
+
+    .btn-outline {
+      padding: 13px 28px;
+      border: 1px solid var(--card-border);
+      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      font-size: 0.88rem;
+      border-radius: 8px;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: var(--transition);
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 35px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s 3s forwards;
+    }
+
+    .scroll-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollPulse 2s infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
     }
 
     @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .header-contact {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
+    /* ===== SECTIONS COMMON ===== */
+    section {
+      padding: 100px 5%;
     }
 
-    .contact-item {
-      background: rgba(255,255,255,0.4);
-      padding: 12px 20px;
-      border-radius: 30px;
-      display: flex;
-      gap: 10px;
+    .section-inner {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-label {
+      display: inline-flex;
       align-items: center;
-      transition: all 0.3s ease;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.3);
-      animation: slideUp 0.8s ease-out 0.4s forwards;
-      opacity: 0;
+      gap: 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
     }
 
-    .contact-item:hover {
-      background: rgba(255,255,255,0.6);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    section {
-      padding: 80px 20px;
-    }
-
-    section {
-      animation: fadeInUp 0.8s ease-out;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .section-label::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
     }
 
     .section-title {
-      text-align: center;
-      margin-bottom: 50px;
-      animation: fadeInDown 0.8s ease-out;
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+      font-weight: 700;
+      margin-bottom: 60px;
+      letter-spacing: -0.02em;
+      color: var(--white);
     }
 
-    .section-title h2 {
-      color: #0A3D62;
-      font-size: 2rem;
-      position: relative;
-      display: inline-block;
-      padding-bottom: 15px;
+    .section-title span {
+      color: var(--sky);
     }
 
-    .section-title h2::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 4px;
-      background: linear-gradient(90deg, #7CC8F8, #5FB8F0);
-      border-radius: 2px;
+    /* ===== REVEAL ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* ABOUT */
-    .about-content {
-      display: flex;
-      gap: 40px;
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===== ABOUT ===== */
+    #about {
+      background: var(--navy-mid);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 70px;
       align-items: center;
-      max-width: 1100px;
-      margin: auto;
     }
 
-    .about-img img {
-      max-width: 350px;
-      border-radius: 15px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      transition: all 0.3s ease;
-      animation: zoomIn 0.8s ease-out;
+    .about-photo-wrap {
+      position: relative;
     }
 
-    .about-img img:hover {
-      transform: scale(1.05) rotate(2deg);
-      box-shadow: 0 15px 40px rgba(124, 200, 248, 0.3);
+    .about-photo-frame {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
     }
 
-    .about-text {
-      animation: fadeInRight 0.8s ease-out;
+    .about-photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      background: linear-gradient(135deg, var(--sky), var(--gold), transparent);
+      border-radius: var(--radius);
+      z-index: 0;
+    }
+
+    .about-photo-inner {
+      position: relative;
+      border-radius: calc(var(--radius) - 2px);
+      overflow: hidden;
+      background: var(--navy-light);
+      z-index: 1;
+      aspect-ratio: 4/5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-photo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .about-photo-inner:hover img {
+      transform: scale(1.04);
+    }
+
+    .about-photo-placeholder {
+      font-size: 6rem;
+      color: var(--navy-light);
+    }
+
+    .about-corner {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 80px;
+      height: 80px;
+      border-right: 2px solid var(--gold);
+      border-bottom: 2px solid var(--gold);
+      border-radius: 0 0 var(--radius-sm) 0;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      border-color: rgba(94, 175, 242, 0.4);
+      transform: translateY(-3px);
+    }
+
+    .stat-number {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
     }
 
     .about-text p {
-      margin-bottom: 15px;
-      color: #333;
-      line-height: 1.8;
-    }
-
-    @keyframes zoomIn {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes fadeInRight {
-      from {
-        opacity: 0;
-        transform: translateX(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* TIMELINE */
-    .timeline {
-      max-width: 900px;
-      margin: auto;
-      position: relative;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      width: 4px;
-      background: #7CC8F8;
-      top: 0;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .timeline-item {
-      width: 50%;
-      padding: 20px 40px;
-      position: relative;
-    }
-
-    .timeline-item:nth-child(1) .timeline-content {
-      animation-delay: 0.1s;
-    }
-
-    .timeline-item:nth-child(2) .timeline-content {
-      animation-delay: 0.3s;
-    }
-
-    .timeline-item:nth-child(3) .timeline-content {
-      animation-delay: 0.5s;
-    }
-
-    .timeline-item:nth-child(odd) { left: 0; }
-    .timeline-item:nth-child(even) { left: 50%; }
-
-    .timeline-content {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      border-left: 5px solid #7CC8F8;
-      transition: all 0.3s ease;
-      animation: slideInUp 0.6s ease-out;
-    }
-
-    .timeline-content:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(124, 200, 248, 0.2);
-    }
-
-    @keyframes slideInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .timeline-item:nth-child(even) .timeline-content {
-      border-left: none;
-      border-right: 5px solid #7CC8F8;
-    }
-
-    .timeline-icon {
-      position: absolute;
-      width: 45px;
-      height: 45px;
-      background: #7CC8F8;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      top: 20px;
-      right: -23px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(124, 200, 248, 0.3);
-    }
-
-    .timeline-item:hover .timeline-icon {
-      transform: scale(1.2);
-      box-shadow: 0 6px 25px rgba(124, 200, 248, 0.5);
-    }
-
-    .timeline-item:nth-child(even) .timeline-icon {
-      left: -23px;
-      right: auto;
-    }
-
-    /* SKILLS */
-    .skills-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .skill-category {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      border-top: 5px solid #7CC8F8;
-    }
-
-    .skill-category:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(124, 200, 248, 0.3);
-    }
-
-    .skill-category h3 {
-      color: #0A3D62;
-      margin-bottom: 20px;
-      font-size: 1.3rem;
-    }
-
-    .skill-item {
-      margin-bottom: 20px;
-    }
-
-    .skill-name {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      font-weight: 500;
-      color: #0A3D62;
-    }
-
-    .skill-percentage {
-      color: #7CC8F8;
-      font-weight: bold;
-    }
-
-    .skill-bar {
-      background: #EAF6FF;
-      border-radius: 10px;
-      overflow: hidden;
-      height: 12px;
-      position: relative;
-    }
-
-    .skill-level {
-      background: linear-gradient(90deg, #7CC8F8, #5FB8F0);
-      height: 100%;
-      animation: fillSkill 1.5s ease-out forwards;
-      border-radius: 10px;
-    }
-
-    @keyframes fillSkill {
-      from {
-        width: 0;
-      }
-    }
-
-    /* BATIK BUTTON */
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      max-width: 1100px;
-      margin: auto 0 30px 0;
-    }
-
-    .project-card {
-      background: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      padding: 25px;
-      border-top: 5px solid #7CC8F8;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(124, 200, 248, 0.3);
-    }
-
-    .project-card h3 {
-      color: #0A3D62;
-      margin-bottom: 12px;
-      font-size: 1.2rem;
-    }
-
-    .project-card p {
-      color: #555;
-      margin-bottom: 15px;
-      flex-grow: 1;
-    }
-
-    .project-card a {
-      background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
-      color: white;
-      padding: 12px 25px;
-      border-radius: 25px;
-      text-decoration: none;
-      display: inline-block;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      text-align: center;
-      box-shadow: 0 5px 15px rgba(124, 200, 248, 0.3);
-    }
-
-    .project-card a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 25px rgba(124, 200, 248, 0.5);
-    }
-
-    /* ACHIEVEMENTS */
-    .achievements-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .achievement-item {
-      background: white;
-      border-radius: 15px;
-      padding: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
-      border-left: 5px solid #7CC8F8;
-      display: flex;
-      gap: 15px;
-    }
-
-    .achievement-item:hover {
-      transform: translateX(5px);
-      box-shadow: 0 12px 30px rgba(124, 200, 248, 0.2);
-    }
-
-    .achievement-icon {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 1.5rem;
-      color: white;
-    }
-
-    .achievement-content h3 {
-      color: #0A3D62;
-      margin-bottom: 8px;
-    }
-
-    .achievement-content p {
-      color: #666;
+      color: #9BAABB;
+      line-height: 1.9;
+      margin-bottom: 18px;
       font-size: 0.95rem;
     }
 
-    .project-button {
-      background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
-      color: white;
-      padding: 15px 35px;
-      border-radius: 50px;
-      text-decoration: none;
-      display: inline-flex;
-      gap: 10px;
-      font-weight: bold;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    .about-text p strong {
+      color: var(--white);
+      font-weight: 600;
     }
 
-    /* FOOTER */
-    footer {
-      background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .tag {
+      padding: 6px 14px;
+      background: rgba(94, 175, 242, 0.08);
+      border: 1px solid rgba(94, 175, 242, 0.2);
+      color: var(--sky-light);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* ===== EDUCATION ===== */
+    #education {
+      background: var(--navy);
+    }
+
+    .edu-timeline {
+      position: relative;
+      padding-left: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .edu-timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 12px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--sky), var(--gold), transparent);
+    }
+
+    .edu-item {
+      position: relative;
+      padding: 0 0 40px 30px;
+    }
+
+    .edu-item:last-child { padding-bottom: 0; }
+
+    .edu-dot {
+      position: absolute;
+      left: -5px;
+      top: 12px;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--sky);
+      border: 2px solid var(--navy);
+      box-shadow: 0 0 0 3px rgba(94, 175, 242, 0.2);
+      transition: var(--transition);
+    }
+
+    .edu-item:hover .edu-dot {
+      background: var(--gold);
+      box-shadow: 0 0 0 5px rgba(201, 168, 76, 0.15);
+    }
+
+    .edu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    .edu-card:hover {
+      border-color: rgba(94, 175, 242, 0.3);
+      transform: translateX(6px);
+    }
+
+    .edu-period {
+      font-size: 0.78rem;
+      color: var(--sky);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .edu-school {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .edu-major {
+      font-size: 0.9rem;
+      color: var(--gold);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .edu-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ===== EXPERIENCE ===== */
+    #experience {
+      background: var(--navy-mid);
+    }
+
+    .exp-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .exp-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 32px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 24px;
+      align-items: start;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    .exp-card:hover {
+      border-color: rgba(201, 168, 76, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .exp-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(94, 175, 242, 0.15), rgba(201, 168, 76, 0.1));
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--sky);
+      flex-shrink: 0;
+    }
+
+    .exp-period {
+      font-size: 0.75rem;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .exp-role {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .exp-org {
+      font-size: 0.85rem;
+      color: var(--sky);
+      margin-bottom: 14px;
+    }
+
+    .exp-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .exp-list li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .exp-list li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.7rem;
+      top: 2px;
+    }
+
+    /* ===== SKILLS ===== */
+    #skills {
+      background: var(--navy);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 32px;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+    }
+
+    .skill-card:hover {
+      border-color: rgba(94, 175, 242, 0.25);
+      transform: translateY(-4px);
+    }
+
+    .skill-card-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .skill-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--sky), #3d8fd4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
       color: white;
-      text-align: center;
-      padding: 50px 30px;
+    }
+
+    .skill-card-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .skill-row {
+      margin-bottom: 20px;
+    }
+
+    .skill-row:last-child { margin-bottom: 0; }
+
+    .skill-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .skill-name-text {
+      font-size: 0.85rem;
+      color: #B0BEC5;
+      font-weight: 500;
+    }
+
+    .skill-pct {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .skill-track {
+      height: 4px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--sky), var(--gold));
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ===== ACHIEVEMENTS ===== */
+    #achievements {
+      background: var(--navy-mid);
+    }
+
+    .ach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .ach-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 26px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
       position: relative;
       overflow: hidden;
     }
 
-    footer::before {
-      content: "";
+    .ach-card::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 50%);
-      pointer-events: none;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
     }
 
-    .footer-content {
-      position: relative;
-      z-index: 1;
+    .ach-card:hover::before {
+      transform: scaleX(1);
     }
 
-    footer h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
+    .ach-card:hover {
+      border-color: rgba(201, 168, 76, 0.25);
+      transform: translateY(-4px);
     }
 
-    footer p {
-      margin: 8px 0;
-    }
-
-    .social-links {
-      margin: 20px 0;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .social-links a {
-      width: 40px;
-      height: 40px;
-      background: rgba(255,255,255,0.2);
-      border-radius: 50%;
+    .ach-medal {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .ach-medal.gold { background: linear-gradient(135deg, rgba(201, 168, 76, 0.2), rgba(201, 168, 76, 0.05)); border: 1px solid rgba(201, 168, 76, 0.3); }
+    .ach-medal.silver { background: linear-gradient(135deg, rgba(176, 190, 197, 0.2), rgba(176, 190, 197, 0.05)); border: 1px solid rgba(176, 190, 197, 0.3); }
+    .ach-medal.bronze { background: linear-gradient(135deg, rgba(188, 143, 112, 0.2), rgba(188, 143, 112, 0.05)); border: 1px solid rgba(188, 143, 112, 0.3); }
+
+    .ach-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 5px;
+    }
+
+    .ach-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ===== PROJECTS ===== */
+    #project {
+      background: var(--navy);
+    }
+
+    .proj-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .proj-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      backdrop-filter: blur(10px);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proj-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--sky), var(--gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .proj-card:hover::after { transform: scaleX(1); }
+
+    .proj-card:hover {
+      border-color: rgba(94, 175, 242, 0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+    }
+
+    .proj-num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--sky);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .proj-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .proj-desc {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .proj-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--sky);
       text-decoration: none;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
+      letter-spacing: 0.05em;
+      transition: var(--transition);
+      padding-top: 8px;
+      border-top: 1px solid var(--card-border);
     }
 
-    .social-links a:hover {
-      background: rgba(255,255,255,0.4);
-      transform: translateY(-5px);
-      border-color: white;
+    .proj-link:hover {
+      color: var(--gold);
+      gap: 12px;
     }
 
-    /* RESPONSIVE DESIGN */
-    @media (max-width: 1200px) {
-      .nav-container {
-        padding: 0 15px;
-      }
+    .proj-link i { font-size: 0.75rem; }
 
-      .project-grid {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-      }
-
-      section {
-        padding: 60px 20px;
-      }
-
-      .section-title h2 {
-        font-size: 1.8rem;
-      }
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--navy-mid);
+      border-top: 1px solid var(--card-border);
+      padding: 60px 5% 40px;
     }
 
+    .footer-inner {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      text-align: center;
+    }
+
+    .footer-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .footer-name span { color: var(--gold); }
+
+    .footer-tagline {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: -20px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: transparent;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .social-btn:hover {
+      border-color: var(--sky);
+      color: var(--sky);
+      transform: translateY(-3px);
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: #4A5568;
+    }
+
+    /* ===== MOBILE MENU ===== */
     @media (max-width: 768px) {
-      /* NAVBAR */
-      .nav-container {
-        height: 60px;
-      }
+      .hamburger { display: flex; }
 
-      .logo {
-        font-size: 1.1rem;
-      }
-
-      .logo i {
-        display: none;
-      }
-
-      .menu-toggle { 
-        display: block; 
-        cursor: pointer;
-      }
-
-      .nav-menu {
-        flex-direction: column;
+      .nav-links {
         position: fixed;
-        top: 60px;
-        left: -100%;
-        width: 100%;
-        background: linear-gradient(135deg, #7CC8F8, #5FB8F0);
-        max-height: calc(100vh - 60px);
-        overflow-y: auto;
-        transition: left 0.3s ease;
-        padding: 20px 0;
-        gap: 0;
-      }
-
-      .nav-menu.active {
+        top: 72px;
         left: 0;
-      }
-
-      .nav-menu li a {
-        padding: 15px 30px;
-        border-radius: 0;
-        width: 100%;
-      }
-
-      .nav-menu li a::before {
-        display: none;
-      }
-
-      /* HEADER */
-      header {
-        padding: 90px 20px 50px;
-      }
-
-      header h1 {
-        font-size: 1.8rem;
-        margin-bottom: 8px;
-      }
-
-      header p {
-        font-size: 1rem;
-      }
-
-      .header-contact {
-        gap: 10px;
-      }
-
-      .contact-item {
-        padding: 10px 15px;
-        font-size: 0.9rem;
-      }
-
-      /* SECTION */
-      section {
-        padding: 50px 15px;
-      }
-
-      .section-title h2 {
-        font-size: 1.5rem;
-      }
-
-      /* ABOUT */
-      .about-content {
+        right: 0;
+        background: rgba(11, 15, 26, 0.97);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
-        text-align: center;
-        gap: 30px;
+        padding: 24px 20px;
+        gap: 4px;
+        border-bottom: 1px solid var(--card-border);
+        transform: translateY(-110%);
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
       }
 
-      .about-img img {
-        max-width: 250px;
+      .nav-links.open {
+        transform: translateY(0);
       }
 
-      .about-text p {
-        text-align: left;
-      }
-
-      /* TIMELINE */
-      .timeline {
-        max-width: 100%;
-      }
-
-      .timeline::before { 
-        left: 15px; 
-      }
-
-      .timeline-item { 
-        width: 100%; 
-        left: 0 !important; 
-        padding-left: 60px;
-        padding-right: 20px;
-      }
-
-      .timeline-item:nth-child(even) .timeline-content {
-        border-left: 5px solid #7CC8F8;
-        border-right: none;
-      }
-
-      .timeline-icon { 
-        left: 0;
-        right: auto !important;
-        width: 35px;
-        height: 35px;
-        font-size: 0.8rem;
-      }
-
-      .timeline-content {
-        padding: 20px;
+      .nav-links a {
+        padding: 12px 16px;
+        border-radius: 8px;
         font-size: 0.95rem;
       }
 
-      /* SKILLS */
-      .skills-container {
+      #home { padding: 90px 5% 50px; }
+
+      section { padding: 70px 5%; }
+
+      .about-grid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 40px;
       }
 
-      .skill-category {
-        padding: 20px;
-      }
+      .about-photo-wrap { max-width: 260px; margin: auto; }
 
-      .skill-category h3 {
-        font-size: 1.1rem;
-      }
+      .about-stats { grid-template-columns: 1fr 1fr; }
 
-      /* PROJECTS */
-      .project-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
+      .exp-card { grid-template-columns: 1fr; gap: 16px; }
 
-      .project-card {
-        padding: 20px;
-      }
+      .skills-grid { grid-template-columns: 1fr; }
 
-      .project-card h3 {
-        font-size: 1.1rem;
-      }
+      .edu-timeline { padding-left: 20px; }
+      .edu-item { padding-left: 20px; }
 
-      /* ACHIEVEMENTS */
-      .achievements-container {
-        grid-template-columns: 1fr;
-        gap: 15px;
-      }
-
-      .achievement-item {
-        padding: 20px;
-      }
-
-      .achievement-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.2rem;
-      }
-
-      .achievement-content h3 {
-        font-size: 1rem;
-      }
-
-      .achievement-content p {
-        font-size: 0.9rem;
-      }
-
-      /* FOOTER */
-      footer {
-        padding: 40px 20px;
-      }
-
-      footer h3 {
-        font-size: 1.2rem;
-      }
-
-      .social-links {
-        gap: 15px;
-      }
-
-      .social-links a {
-        width: 35px;
-        height: 35px;
-      }
-
-      .project-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .achievements-container {
-        grid-template-columns: 1fr;
-      }
-
-      .section-title h2 {
-        font-size: 1.5rem;
-      }
+      .proj-grid { grid-template-columns: 1fr; }
+      .ach-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 480px) {
-      /* NAVBAR */
-      .nav-container {
-        height: 55px;
-      }
-
-      .logo {
-        font-size: 0.9rem;
-      }
-
-      /* HEADER */
-      header {
-        padding: 70px 15px 40px;
-      }
-
-      header h1 {
-        font-size: 1.4rem;
-        margin-bottom: 5px;
-      }
-
-      header p {
-        font-size: 0.9rem;
-      }
-
-      .header-contact {
-        gap: 8px;
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .contact-item {
-        padding: 8px 12px;
-        font-size: 0.8rem;
-        justify-content: center;
-      }
-
-      .contact-item i {
-        display: none;
-      }
-
-      /* SECTION */
-      section {
-        padding: 40px 12px;
-      }
-
-      .section-title h2 {
-        font-size: 1.3rem;
-      }
-
-      .section-title h2::after {
-        width: 50px;
-      }
-
-      /* ABOUT */
-      .about-img img {
-        max-width: 150px;
-      }
-
-      .about-text p {
-        font-size: 0.9rem;
-        line-height: 1.6;
-      }
-
-      /* TIMELINE */
-      .timeline-item {
-        padding-left: 50px;
-        padding-right: 15px;
-      }
-
-      .timeline::before {
-        left: 10px;
-      }
-
-      .timeline-icon {
-        width: 30px;
-        height: 30px;
-        font-size: 0.7rem;
-      }
-
-      .timeline-content {
-        padding: 15px;
-      }
-
-      .timeline-content h3 {
-        font-size: 1rem;
-      }
-
-      .timeline-content p {
-        font-size: 0.85rem;
-      }
-
-      /* SKILLS */
-      .skill-category {
-        padding: 15px;
-      }
-
-      .skill-category h3 {
-        font-size: 1rem;
-      }
-
-      .skill-item {
-        margin-bottom: 15px;
-      }
-
-      .skill-name {
-        font-size: 0.9rem;
-      }
-
-      .skill-bar {
-        height: 10px;
-      }
-
-      /* PROJECTS */
-      .project-card {
-        padding: 15px;
-      }
-
-      .project-card h3 {
-        font-size: 1rem;
-      }
-
-      .project-card p {
-        font-size: 0.9rem;
-      }
-
-      .project-card a {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-      }
-
-      /* ACHIEVEMENTS */
-      .achievement-item {
-        padding: 15px;
-        gap: 10px;
-      }
-
-      .achievement-icon {
-        width: 35px;
-        height: 35px;
-        font-size: 1rem;
-      }
-
-      .achievement-content h3 {
-        font-size: 0.95rem;
-        margin-bottom: 5px;
-      }
-
-      .achievement-content p {
-        font-size: 0.85rem;
-      }
-
-      /* FOOTER */
-      footer {
-        padding: 30px 15px;
-      }
-
-      footer h3 {
-        font-size: 1rem;
-      }
-
-      footer p {
-        font-size: 0.9rem;
-        margin: 5px 0;
-      }
-
-      .social-links {
-        gap: 10px;
-        margin: 15px 0;
-      }
-
-      .social-links a {
-        width: 30px;
-        height: 30px;
-        font-size: 0.9rem;
-      }
-    }
-
-    @media (max-width: 360px) {
-      header h1 {
-        font-size: 1.2rem;
-      }
-
-      .section-title h2 {
-        font-size: 1.1rem;
-      }
-
-      .nav-menu li a {
-        padding: 12px 20px;
-        font-size: 0.9rem;
-      }
+      .hero-name { font-size: 2rem; }
+      .section-title { font-size: 1.6rem; }
+      .hero-chips { gap: 8px; }
+      .chip { font-size: 0.75rem; padding: 6px 12px; }
+      .edu-card { padding: 20px; }
+      .exp-card { padding: 20px; }
+      .skill-card { padding: 22px; }
+      .ach-card { padding: 20px; gap: 14px; }
+      .proj-card { padding: 22px; }
     }
   </style>
 </head>
+<body>
 
-  <body>
-    <!-- Navigation -->
-    <nav>
-      <div class="nav-container">
-        <a href="#home" class="logo">
-          <i class="fas fa-user-circle"></i>
-          <span>Adel Fitri Rahmasari</span>
-        </a>
-        
-        <button class="menu-toggle" id="menuToggle">
-          <i class="fas fa-bars"></i>
-        </button>
-        
-        <ul class="nav-menu" id="navMenu">
-          <li><a href="#home" class="active"><i class="fas fa-home"></i> Beranda</a></li>
-          <li><a href="#about"><i class="fas fa-user"></i> Profil</a></li>
-          <li><a href="#education"><i class="fas fa-graduation-cap"></i> Pendidikan</a></li>
-          <li><a href="#experience"><i class="fas fa-briefcase"></i> Pengalaman</a></li>
-          <li><a href="#skills"><i class="fas fa-code"></i> Keahlian</a></li>
-          <li><a href="#achievements"><i class="fas fa-trophy"></i> Prestasi</a></li>
-          <li><a href="#project"><i class="fas fa-palette"></i> Project</a></li>
-        </ul>
-      </div>
-    </nav>
+<!-- Loading Screen -->
+<div id="loader">
+  <div class="loader-name">Adel Fitri Rahmasari</div>
+  <div class="loader-bar-track">
+    <div class="loader-bar"></div>
+  </div>
+</div>
 
-    <!-- Header Section -->
-    <header id="home">
-      <div class="container">
-        <h1>Adel Fitri Rahmasari</h1>
-        <p>Siswa XI-PPLG 1 | SMKN 5 Malang </p>
-        <div class="header-contact">
-          <div class="contact-item">
-            <i class="fas fa-phone"></i>
-            <span>0815-5448-4317</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-envelope"></i>
-            <span>delhehehe18@gmail.com</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt"></i>
-            <span>Malang, Jawa Timur</span>
-          </div>
-        </div>
-      </div>
-    </header>
+<!-- Navbar -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="#home" class="logo">Adel<span>.</span></a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">Beranda</a></li>
+      <li><a href="#about">Profil</a></li>
+      <li><a href="#education">Pendidikan</a></li>
+      <li><a href="#experience">Pengalaman</a></li>
+      <li><a href="#skills">Keahlian</a></li>
+      <li><a href="#achievements">Prestasi</a></li>
+      <li><a href="#project">Project</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <!-- About Me Section -->
-    <section id="about">
-      <div class="container">
-        <div class="section-title">
-          <h2>Profil</h2>
-        </div>
-
-        <div class="about-content">
-          <div class="about-img">
-          <img src="image/Gemini_Generated_Image_s01qavs01qavs01q.png" alt="Adel Fitri Rahmasari" />
-          </div>
-
-          <div class="about-text">
-            <p>Nama saya <strong>Adel Fitri Rahmasari</strong>, lahir di Malang pada tanggal 04 Oktober 2008. Saya adalah siswa SMKN 5 Malang tahun ajaran 2024/2025, kelas XI PPLG 1 jurusan Pengembangan Perangkat Lunak dan Gim.</p>
-            <p>Saya tinggal di Jalan Terusan Batu Bara VII No.52, Kota Malang. Saya aktif di bidang teknologi. Hobi saya membaca, menyanyi, menonton film, berolahraga, bermain game.</p>
-            <p>Saya punya semangat belajar tinggi dan bercita-cita menjadi orang sukses yang bermanfaat. Saya memiliki pengalaman dalam organisasi dan telah meraih berbagai prestasi akademik.</p>
-            <p>Saya sedang mengembangkan keterampilan dalam pengembangan perangkat lunak dan berharap dapat berkontribusi dalam industri teknologi di masa depan.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education">
-      <div class="container">
-        <div class="section-title">
-          <h2>Riwayat Pendidikan</h2>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2024 - Sekarang</div>
-              <h3>SMKN 5 Malang</h3>
-              <p>Jurusan Pengembangan Perangkat Lunak dan Gim (PPLG)</p>
-              <p><em>Mempelajari dasar-dasar pemrograman, desain web, dan pengembangan aplikasi</em></p>
-            </div>
-            <div class="timeline-icon">
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2021 - 2024</div>
-              <h3>MTS Ahmad Yani Jabung</h3>
-              <p><em>Aktif di ekstrakurikuler Qiroati</em></p>
-            </div>
-            <div class="timeline-icon">
-              <i class="fas fa-school"></i>
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2015 - 2021</div>
-              <h3>SDI Dewi Masyithoh Gondanglegi</h3>
-              <p>Program Reguler</p>
-              <p><em>Juara Umum regu terbaik putri yang di pimpin oleh saya</em></p>
-            </div>
-            <div class="timeline-icon">
-              <i class="fas fa-book"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Work Experience & Achievements Section -->
-    <section id="experience">
-      <div class="container">
-        <div class="section-title">
-          <h2>Pengalaman Organisasi & Prestasi</h2>
-        </div>
-
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2024 - Sekarang</div>
-              <h3>Anggota Muda Mudi</h3>
-              <p>Bidang Sekretaris dan Teknologi Informasi</p>
-              <ul>
-                <li>Membuat desain poster digital untuk kegiatan</li>
-                <li>Mengelola media sosial</li>
-                <li>Membantu pembuatan Proposal Muda Mudi</li>
-              </ul>
-            </div>
-            <div class="timeline-icon">
-              <i class="fas fa-users"></i>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date"><i class="far fa-calendar-alt"></i> 2021</div>
-              <h3>Anggota OSIS</h3>
-              <p>Koordinator Tim Keamanan</p>
-              <ul>
-                <li>Mengkoordinasikan pengamanan acara-acara sekolah.</li>
-                <li>Memimpin tim keamanan OSIS dalam menjaga ketertiban sekolah.</li>
-                <li>Bekerja sama dengan guru, satpam, dan pihak terkait untuk menegakkan disiplin.</li>
-              </ul>
-            </div>
-            <div class="timeline-icon">
-              <i class="fas fa-user-shield"></i>
-            </div>
-          </div>
-          
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date"><i class="far fa-calendar-alt"></i> Berbagai Tahun</div>
-              <h3>Prestasi Akademik & Non-Akademik</h3>
-              <ul>
-                <li>Juara 3 Tingkat KKM di Lomba Qiroati Putri</li>
-                <li>Meraih Medali Perak di Bidang Bahasa Indonesia di Olimpiade Indonesia Olimpiad Science</li>
-                <li>Peserta Aktif di Bidang Informatika di Olimpiade Semarak Sains Nasional</li>
-                <li>Meraih Medali Perunggu di Bidang Bahasa Indonesia di Olimpiade National Science Competition</li>
-                <li>Meraih Medali Perunggu di Bidang Informatika di Olimpiade Sains dan Kesehatan</li>
-              </ul>
-            </div>
-            <div class="timeline-icon">
-              <i class="fas fa-trophy"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-      <div class="container">
-        <div class="section-title">
-          <h2>Kemampuan & Keahlian</h2>
-        </div>
-
-        <div class="skills-container">
-          <div class="skill-category">
-            <h3>Kepemimpinan OSIS</h3>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Koordinasi Tim Keamanan</span>
-                <span class="skill-percentage">85%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 85%"></div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Manajemen Acara Sekolah</span>
-                <span class="skill-percentage">85%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 85%"></div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Public Speaking</span>
-                <span class="skill-percentage">75%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 75%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>Teknologi (PPLG)</h3>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>HTML/CSS</span>
-                <span class="skill-percentage">80%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 80%"></div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>JavaScript Dasar</span>
-                <span class="skill-percentage">65%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 65%"></div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Microsoft Office</span>
-                <span class="skill-percentage">79%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 79%"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-category">
-            <h3>Organisasi Muda Mudi</h3>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Desain Grafis (Canva)</span>
-                <span class="skill-percentage">98%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 98%"></div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Manajemen Media Sosial</span>
-                <span class="skill-percentage">82%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 82%"></div>
-              </div>
-            </div>
-            <div class="skill-item">
-              <div class="skill-name">
-                <span>Penulisan Proposal</span>
-                <span class="skill-percentage">76%</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-level" style="width: 76%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Achievements Section -->
-    <section id="achievements">
-      <div class="container">
-        <div class="section-title">
-          <h2>Pencapaian & Penghargaan</h2>
-        </div>
-
-        <div class="achievements-container">
-          <div class="achievement-item">
-            <div class="achievement-icon">
-            </div>
-            <div class="achievement-content">
-              <h3>Juara 3 Lomba Qiroati</h3>
-              <p>Meraih juara 3 tingkat KKM di lomba Qiroati Putri yang diselenggarakan di wilayah Malang.</p>
-            </div>
-          </div>
-
-          <div class="achievement-item">
-            <div class="achievement-icon">
-            </div>
-            <div class="achievement-content">
-              <h3>Medali Perak Bahasa Indonesia</h3>
-              <p>Meraih medali perak di bidang Bahasa Indonesia pada Olimpiade Indonesia Olimpiad Science.</p>
-            </div>
-          </div>
-
-          <div class="achievement-item">
-            <div class="achievement-icon">
-            </div>
-            <div class="achievement-content">
-              <h3>Peserta Aktif Informatika</h3>
-              <p>Sebagai peserta aktif di bidang Informatika pada Olimpiade Semarak Sains Nasional.</p>
-            </div>
-          </div>
-
-          <div class="achievement-item">
-            <div class="achievement-icon">
-            </div>
-            <div class="achievement-content">
-              <h3>Medali Perunggu Bahasa Indonesia</h3>
-              <p>Meraih medali perunggu di bidang Bahasa Indonesia pada Olimpiade National Science Competition.</p>
-            </div>
-          </div>
-
-          <div class="achievement-item">
-            <div class="achievement-icon">
-            </div>
-            <div class="achievement-content">
-              <h3>Medali Perunggu Informatika</h3>
-              <p>Meraih medali perunggu di bidang Informatika pada Olimpiade Sains dan Kesehatan.</p>
-            </div>
-          </div>
-
-                    <div class="achievement-item">
-            <div class="achievement-icon">
-            </div>
-            <div class="achievement-content">
-              <h3>Medali Perak Sosiologi</h3>
-              <p>Meraih medali perak di bidang Sosialogi pada Olimpiade Diponegoro Achievers Olympiad.</p>
-            </div>
-          </div>
-
-                    <div class="achievement-item">
-            <div class="achievement-icon">
-            </div>
-            <div class="achievement-content">
-              <h3>Medali Perunggu Matematika</h3>
-              <p>Meraih medali perunggu di bidang Matematika pada Olimpiade Airlangga Youth Olympiad.</p>
-            </div>
-          </div>
-
-        </div>
-
-<!-- PROJECT -->
-<section id="project">
-  <div class="container">
-    <div class="section-title">
-      <h2>Project</h2>
+<!-- Hero -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Portofolio Siswa</div>
+    <h1 class="hero-name">
+      Adel Fitri<br><span class="accent">Rahmasari</span>
+    </h1>
+    <p class="hero-sub">Siswa XI-PPLG 1 · SMKN 5 Malang — Calon pengembang perangkat lunak yang bersemangat di bidang teknologi dan desain.</p>
+    <div class="hero-chips">
+      <div class="chip"><i class="fas fa-phone"></i> 0815-5448-4317</div>
+      <div class="chip"><i class="fas fa-envelope"></i> delhehehe18@gmail.com</div>
+      <div class="chip"><i class="fas fa-map-marker-alt"></i> Malang, Jawa Timur</div>
     </div>
-    <div class="project-grid">
-      <div class="project-card">
-        <h3>Website Batik Indonesia</h3>
-        <p>Website edukasi untuk memperkenalkan batik Indonesia.</p>
-        <a href="batik.html">Lihat Project</a>
+    <div class="hero-cta">
+      <a href="#project" class="btn-primary">Lihat Project <i class="fas fa-arrow-right" style="margin-left:8px; font-size:0.8rem;"></i></a>
+      <a href="#about" class="btn-outline">Tentang Saya</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- About -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">Tentang Saya</div>
+    <h2 class="section-title">Kenali <span>Saya</span></h2>
+    <div class="about-grid">
+      <div class="about-photo-wrap reveal-left">
+        <div class="about-photo-frame">
+          <div class="about-photo-inner">
+            <img src="image/z.png" alt="Adel Fitri Rahmasari" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'about-photo-placeholder\'><i class=\'fas fa-user\'></i></div>'">
+          </div>
+        </div>
+        <div class="about-corner"></div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-number">7+</div>
+            <div class="stat-label">Prestasi</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">Project</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2+</div>
+            <div class="stat-label">Organisasi</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2025</div>
+            <div class="stat-label">Angkatan</div>
+          </div>
+        </div>
       </div>
-      <div class="project-card">
-        <h3>Website Kalkulator</h3>
-        <p>Website Kalkulator Simulasi.</p>
-        <a href="https://adelfitri03.github.io/kalkulator/">Lihat Project</a>
-      </div>
-      <div class="project-card">
-        <h3>Website Inventori Barang</h3>
-        <p>Website Inventori Barang menggunakan Laravel yang bisa di akses menggunakan server sekolah.</p>
-        <a href="http://103.186.167.18:8002/rpl1/laravel/barang/public">Lihat Project</a>
-      </div>
-      <div class="project-card">
-        <h3>Website Portofolio</h3>
-        <p>Website Portofolio sederhana.</p>
-        <a href="index2.html">Lihat Project</a>
-      </div>
-      <div class="project-card">
-        <h3>desain UI/UX aplikasi di Figma</h3>
-        <p>membuat desain aplikasi UI/UX menggunakan figma.</p>
-        <a href="https://www.figma.com/proto/FTeIgrnsiEpbfT6tm96wdQ/app?node-id=1-2&p=f&t=YGkPVmrxnmNivzoj-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2">Lihat Project</a>
+      <div class="about-text reveal">
+        <p>Nama saya <strong>Adel Fitri Rahmasari</strong>, lahir di Malang pada tanggal 04 Oktober 2008. Saya adalah siswa SMKN 5 Malang tahun ajaran 2024/2025, kelas XI PPLG 1 jurusan Pengembangan Perangkat Lunak dan Gim.</p>
+        <p>Saya tinggal di Jalan Terusan Batu Bara VII No.52, Kota Malang. Aktif di bidang teknologi, dengan hobi membaca, menyanyi, dan bermain game.</p>
+        <p>Saya memiliki semangat belajar tinggi dan bercita-cita menjadi orang sukses yang bermanfaat. Pengalaman organisasi dan berbagai prestasi akademik menjadi landasan perjalanan saya.</p>
+        <p>Saat ini sedang mengembangkan keterampilan pengembangan perangkat lunak dan berharap dapat berkontribusi nyata dalam industri teknologi di masa depan.</p>
+        <div class="about-tags">
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Figma UI/UX</span>
+          <span class="tag">Laravel</span>
+          <span class="tag">Canva</span>
+          <span class="tag">Microsoft Office</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="footer-content">
-          <h3>Adel Fitri Rahmasari</h3>
-          <div class="social-links">
-            <a href="https://wa.me/qr/E3C672TMXWJ4P1"><i class="fab fa-whatsapp"></i></a>
-            <a href="https://www.instagram.com/_deltcha/"><i class="fab fa-instagram"></i></a>
-            <a href="https://github.com/adelfitri03"><i class="fab fa-github"></i></a>
-            <a href="https://www.tiktok.com/@_dellmtcha"><i class="fab fa-tiktok"></i></a>
-
-          </div>
-          <p>&copy; 2025 Adel Fitri Rahmasari. All rights reserved.</p>
-          <p>Created with <i class="fas fa-smile"></i> by Adel</p>
+<!-- Education -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label">Pendidikan</div>
+    <h2 class="section-title">Riwayat <span>Pendidikan</span></h2>
+    <div class="edu-timeline">
+      <div class="edu-item reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-card">
+          <div class="edu-period">2024 — Sekarang</div>
+          <div class="edu-school">SMKN 5 Malang</div>
+          <div class="edu-major">Pengembangan Perangkat Lunak dan Gim (PPLG)</div>
+          <div class="edu-note">Mempelajari dasar-dasar pemrograman, desain web, dan pengembangan aplikasi</div>
         </div>
       </div>
-    </footer>
+      <div class="edu-item reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-card">
+          <div class="edu-period">2021 — 2024</div>
+          <div class="edu-school">MTS Ahmad Yani Jabung</div>
+          <div class="edu-major">Program Reguler</div>
+          <div class="edu-note">Aktif di ekstrakurikuler Qiroati</div>
+        </div>
+      </div>
+      <div class="edu-item reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-card">
+          <div class="edu-period">2015 — 2021</div>
+          <div class="edu-school">SDI Dewi Masyithoh Gondanglegi</div>
+          <div class="edu-major">Program Reguler</div>
+          <div class="edu-note">Juara umum regu terbaik putri yang dipimpin oleh saya</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-      // Navigation functionality
-      document.addEventListener('DOMContentLoaded', function() {
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navMenu');
-        const navLinks = document.querySelectorAll('.nav-menu a');
-        
-        // Toggle mobile menu
-        if (menuToggle) {
-          menuToggle.addEventListener('click', function(e) {
-            e.stopPropagation();
-            navMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-          });
-        }
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-          if (!event.target.closest('nav') && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            if (menuToggle) {
-              menuToggle.classList.remove('active');
-            }
-          }
+<!-- Experience -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Pengalaman</div>
+    <h2 class="section-title">Organisasi & <span>Pengalaman</span></h2>
+    <div class="exp-grid">
+      <div class="exp-card reveal">
+        <div class="exp-icon-wrap"><i class="fas fa-users"></i></div>
+        <div>
+          <div class="exp-period">2024 — Sekarang</div>
+          <div class="exp-role">Anggota Muda Mudi</div>
+          <div class="exp-org">Bidang Sekretaris dan Teknologi Informasi</div>
+          <ul class="exp-list">
+            <li>Membuat desain poster digital untuk kegiatan organisasi</li>
+            <li>Mengelola media sosial organisasi secara aktif</li>
+            <li>Membantu pembuatan proposal kegiatan Muda Mudi</li>
+          </ul>
+        </div>
+      </div>
+      <div class="exp-card reveal">
+        <div class="exp-icon-wrap"><i class="fas fa-user-shield"></i></div>
+        <div>
+          <div class="exp-period">2021</div>
+          <div class="exp-role">Anggota OSIS</div>
+          <div class="exp-org">Koordinator Tim Keamanan</div>
+          <ul class="exp-list">
+            <li>Mengkoordinasikan pengamanan acara-acara sekolah</li>
+            <li>Memimpin tim keamanan OSIS dalam menjaga ketertiban sekolah</li>
+            <li>Bekerja sama dengan guru, satpam, dan pihak terkait untuk menegakkan disiplin</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Keahlian</div>
+    <h2 class="section-title">Kemampuan & <span>Keahlian</span></h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-card-icon"><i class="fas fa-users-cog"></i></div>
+          <div class="skill-card-title">Kepemimpinan</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">Koordinasi Tim Keamanan</span><span class="skill-pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">Manajemen Acara Sekolah</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">Public Speaking</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-card-icon"><i class="fas fa-code"></i></div>
+          <div class="skill-card-title">Teknologi (PPLG)</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">HTML / CSS</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">Python</span><span class="skill-pct">65%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">Microsoft Office</span><span class="skill-pct">85%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="85"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-card-header">
+          <div class="skill-card-icon"><i class="fas fa-palette"></i></div>
+          <div class="skill-card-title">Desain</div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">Desain Grafis (Canva)</span><span class="skill-pct">90%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="90"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">Manajemen Media Sosial</span><span class="skill-pct">80%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-meta"><span class="skill-name-text">Editing Video(Capcut)</span><span class="skill-pct">75%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="83"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Achievements -->
+<section id="achievements">
+  <div class="section-inner">
+    <div class="section-label">Prestasi</div>
+    <h2 class="section-title">Pencapaian & <span>Penghargaan</span></h2>
+    <div class="ach-grid">
+      <div class="ach-card reveal">
+        <div class="ach-medal bronze">🥉</div>
+        <div>
+          <div class="ach-title">Juara 3 Lomba Qiroati</div>
+          <div class="ach-desc">Meraih juara 3 tingkat KKM di lomba Qiroati Putri yang diselenggarakan di wilayah Malang.</div>
+        </div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-medal silver">🥈</div>
+        <div>
+          <div class="ach-title">Medali Perak — Bahasa Indonesia</div>
+          <div class="ach-desc">Olimpiade Indonesia Olimpiad Science — bidang Bahasa Indonesia.</div>
+        </div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-medal silver">🏅</div>
+        <div>
+          <div class="ach-title">Peserta Aktif — Informatika</div>
+          <div class="ach-desc">Peserta aktif di bidang Informatika pada Olimpiade Semarak Sains Nasional.</div>
+        </div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-medal bronze">🥉</div>
+        <div>
+          <div class="ach-title">Medali Perunggu — Bahasa Indonesia</div>
+          <div class="ach-desc">Olimpiade National Science Competition — bidang Bahasa Indonesia.</div>
+        </div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-medal bronze">🥉</div>
+        <div>
+          <div class="ach-title">Medali Perunggu — Informatika</div>
+          <div class="ach-desc">Olimpiade Sains dan Kesehatan — bidang Informatika.</div>
+        </div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-medal silver">🥈</div>
+        <div>
+          <div class="ach-title">Medali Perak — Sosiologi</div>
+          <div class="ach-desc">Olimpiade Diponegoro Achievers Olympiad — bidang Sosiologi.</div>
+        </div>
+      </div>
+      <div class="ach-card reveal">
+        <div class="ach-medal bronze">🥉</div>
+        <div>
+          <div class="ach-title">Medali Perunggu — Matematika</div>
+          <div class="ach-desc">Olimpiade Airlangga Youth Olympiad — bidang Matematika.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="project">
+  <div class="section-inner">
+    <div class="section-label">Project</div>
+    <h2 class="section-title">Karya & <span>Project</span></h2>
+    <div class="proj-grid">
+      <div class="proj-card reveal">
+        <div class="proj-num">01 / Web</div>
+        <div class="proj-title">Website Batik Indonesia</div>
+        <div class="proj-desc">Website edukasi untuk memperkenalkan dan melestarikan batik Indonesia kepada generasi muda.</div>
+        <a href="batik.html" class="proj-link">Lihat Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-num">02 / Web</div>
+        <div class="proj-title">Website Kalkulator</div>
+        <div class="proj-desc">Aplikasi kalkulator simulasi yang dibangun menggunakan HTML, CSS, dan JavaScript.</div>
+        <a href="https://adelfitri03.github.io/kalkulator/" class="proj-link" target="_blank">Lihat Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-num">03 / Laravel</div>
+        <div class="proj-title">Website Inventori Barang</div>
+        <div class="proj-desc">Sistem inventori barang berbasis Laravel yang dapat diakses melalui server sekolah.</div>
+        <a href="http://103.186.167.18:8002/rpl1/laravel/barang/public" class="proj-link" target="_blank">Lihat Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-num">04 / Web</div>
+        <div class="proj-title">Website Portofolio</div>
+        <div class="proj-desc">Website portofolio personal sederhana untuk menampilkan profil dan pencapaian.</div>
+        <a href="index2.html" class="proj-link">Lihat Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-num">05 / UI/UX</div>
+        <div class="proj-title">Desain Aplikasi di Figma</div>
+        <div class="proj-desc">Perancangan antarmuka aplikasi modern menggunakan Figma dengan pendekatan UI/UX design yang terstruktur.</div>
+        <a href="https://www.figma.com/proto/FTeIgrnsiEpbfT6tm96wdQ/app?node-id=1-2&p=f&t=YGkPVmrxnmNivzoj-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2" class="proj-link" target="_blank">Lihat Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+            <div class="proj-card reveal">
+        <div class="proj-num">05 / Web</div>
+        <div class="proj-title">Website Jurusan DKV SMKN 5 Malang</div>
+        <div class="proj-desc">Penyusunan website resmi untuk jurusan Desain Komunikasi Visual di SMKN 5 Malang.</div>
+        <a href="https://dkv-smkn5.vercel.app/" class="proj-link" target="_blank">Lihat Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+            <div class="proj-card reveal">
+        <div class="proj-num">05 / Web</div>
+        <div class="proj-title">Machine Learning</div>
+        <div class="proj-desc">Memprediksi harga jual toko online dengan metode linear regression.</div>
+        <a href="https://www.figma.com/proto/FTeIgrnsiEpbfT6tm96wdQ/app?node-id=1-2&p=f&t=YGkPVmrxnmNivzoj-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A2" class="proj-link" target="_blank">Lihat Project <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Adel Fitri Rahmasari<span>.</span></div>
+    <p class="footer-tagline">Siswa SMKN 5 Malang · PPLG · Calon Pengembang Perangkat Lunak</p>
+    <div class="footer-socials">
+      <a href="https://wa.me/qr/E3C672TMXWJ4P1" class="social-btn" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/_deltcha/" class="social-btn" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://github.com/adelfitri03" class="social-btn" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://www.tiktok.com/@_dellmtcha" class="social-btn" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+    <p class="footer-copy">© 2025 Adel Fitri Rahmasari. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  // Loading Screen
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hide');
+    }, 1800);
+  });
+
+  // Navbar scroll effect + active link
+  const navbar = document.getElementById('navbar');
+  const navLinkEls = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
+
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+
+    let current = '';
+    sections.forEach(sec => {
+      if (window.scrollY >= sec.offsetTop - 100) current = sec.getAttribute('id');
+    });
+
+    navLinkEls.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === `#${current}`);
+    });
+  });
+
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+
+  navLinkEls.forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navLinks.classList.remove('open');
+    });
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      window.scrollTo({ top: target.offsetTop - 72, behavior: 'smooth' });
+    });
+  });
+
+  // Intersection Observer for reveal animations
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+
+        // Animate skill bars
+        entry.target.querySelectorAll('.skill-fill[data-width]').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
         });
-        
-        // Close mobile menu when clicking on a link
-        navLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
-            navMenu.classList.remove('active');
-            if (menuToggle) {
-              menuToggle.classList.remove('active');
-            }
-            
-            // Update active link for internal navigation
-            if (!this.getAttribute('href').includes('.html')) {
-              navLinks.forEach(navLink => {
-                if (!navLink.getAttribute('href').includes('.html')) {
-                  navLink.classList.remove('active');
-                }
-              });
-              this.classList.add('active');
-            }
-          });
-        });
-          });
-        });
-        
-        // Update active link on scroll (only for internal links)
-        window.addEventListener('scroll', function() {
-          const sections = document.querySelectorAll('section');
-          const navHeight = 70;
-          
-          let current = '';
-          sections.forEach(section => {
-            const sectionTop = section.offsetTop - navHeight - 50;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
-              current = section.getAttribute('id');
-            }
-          });
-          
-          navLinks.forEach(link => {
-            // Only update active state for internal navigation links
-            if (!link.getAttribute('href').includes('.html')) {
-              link.classList.remove('active');
-              if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-              }
-            }
-          });
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-              const navHeight = 70;
-              const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
-              
-              window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-              });
-            }
-          });
-        });
-      });
-    </script>
-  </body>
+
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal, .reveal-left').forEach(el => revealObserver.observe(el));
+
+  // Stagger delay for grids
+  document.querySelectorAll('.ach-grid .ach-card, .proj-grid .proj-card, .skills-grid .skill-card').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.08) + 's';
+  });
+</script>
+</body>
 </html>
